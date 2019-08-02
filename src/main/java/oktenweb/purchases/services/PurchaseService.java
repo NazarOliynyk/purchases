@@ -15,11 +15,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class PurchaseService {
 
-    @Autowired
-    PurchaseDAO purchaseDAO;
+    private final PurchaseDAO purchaseDAO;
+
+    private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    UserServiceImpl userServiceImpl;
+    public PurchaseService(PurchaseDAO purchaseDAO, UserServiceImpl userServiceImpl) {
+        this.purchaseDAO = purchaseDAO;
+        this.userServiceImpl = userServiceImpl;
+    }
 
 
     public ResponseTransfer<String> savePurchase(int id, Purchase purchase){
