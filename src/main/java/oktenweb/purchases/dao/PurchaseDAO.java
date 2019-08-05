@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface PurchaseDAO extends JpaRepository<Purchase, Integer> {
-
+    Purchase findById(int id);
     List<Purchase> findAllByUserId(int id);
 
 }

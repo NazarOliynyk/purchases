@@ -9,7 +9,6 @@ import oktenweb.purchases.services.PurchaseService;
 import oktenweb.purchases.services.impl.UserServiceImpl;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -124,6 +121,7 @@ public class PurchaseServiceTest {
 
         Assert.assertTrue(!purchases.isEmpty());
         Assert.assertEquals(purchaseList, purchases);
+
         verify(purchaseDAO, times(1)).findAllByUserId(1);
         verifyNoMoreInteractions(purchaseDAO);
     }
