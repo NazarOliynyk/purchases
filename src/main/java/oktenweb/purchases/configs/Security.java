@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,6 +53,8 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll() // by default method get
                 .antMatchers(HttpMethod.POST, "/login", "/saveUser").permitAll()
+                .antMatchers("/*.ico").permitAll()
+                .antMatchers("/*.js").permitAll()
                 .anyRequest().authenticated()
                 .antMatchers(HttpMethod.GET,"/admin/**").hasRole("ADMIN")
                 .and()
@@ -59,6 +62,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new RequestProcessingJWTFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new LoginFilter("/login", authenticationManager(), userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
